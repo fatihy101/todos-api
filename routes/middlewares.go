@@ -31,7 +31,7 @@ func JSONResponseMiddleware(next http.Handler) http.Handler {
 
 func AllowOrigin(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "localhost:8080")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, X-User-Id")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
