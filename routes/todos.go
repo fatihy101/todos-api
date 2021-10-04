@@ -18,6 +18,7 @@ var (
 	ErrUserIdRequired  = errors.New("validation failed: Header userId is required")
 	ErrrTodoIdRequired = errors.New("validation failed: id is required")
 	ErrNoTodoFound     = errors.New("todo item couldn't found with the given id")
+	ErrTextRequired    = errors.New("validation failed: Text can't be blank")
 )
 
 func GetTodosHandler(w http.ResponseWriter, r *http.Request) {
@@ -58,6 +59,11 @@ func AddTodoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if todo.Text == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		createResponse(w, errorMap, "error", ErrTextRequired.Error())
+		return
+	}
 	if todo.UserId != userId {
 		w.WriteHeader(http.StatusUnauthorized)
 		createResponse(w, errorMap, "error", ErrUserIdMismatch.Error())
@@ -79,7 +85,7 @@ func DeleteTodoHandler(w http.ResponseWriter, r *http.Request) {
 	userId := r.Header.Get("X-User-Id")
 	mdb := getDB(r)
 	itemId := chi.URLParam(r, "id")
-
+	fmt.Printf("itemId: %s\n", itemId)
 	item, err := mdb.GetTodoById(itemId)
 
 	if err != nil {
@@ -114,6 +120,12 @@ func UpdateTodoHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		createResponse(w, errorMap, "error", err.Error())
+		return
+	}
+
+	if todo.Text == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		createResponse(w, errorMap, "error", ErrTextRequired.Error())
 		return
 	}
 

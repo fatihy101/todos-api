@@ -22,4 +22,4 @@ RUN chmod +x ./http-service
 
 
 EXPOSE 4000
-CMD ["./http-service"]
+ENTRYPOINT ["./http-service"]

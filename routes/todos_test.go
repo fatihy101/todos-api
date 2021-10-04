@@ -196,7 +196,7 @@ func TestDeleteTodo(t *testing.T) {
 
 	})
 
-	t.Run("should return 401 when header user id and item's user id mismatch ", func(t *testing.T) {
+	t.Run("should return 401 when header user id and item's user id mismatch", func(t *testing.T) {
 		// Given
 		mockdb := &mockDB{}
 		req, err := http.NewRequest("DELETE", "/todos/10", nil)

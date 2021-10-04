@@ -12,9 +12,10 @@ import (
 // MongoDB Connection String
 const connectionString = "mongodb+srv://dbUser:dbUserPass@cluster0.3bhbu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-func startServer() {
+func startServer(isTest bool) {
+	dbName := getDBName(isTest)
 	port := ":4000"
-	dbCon := db.OpenConnection(connectionString, "todoApp")
+	dbCon := db.OpenConnection(connectionString, dbName)
 	server := &http.Server{
 		Addr:    port,
 		Handler: routes.Routes(dbCon),
@@ -27,5 +28,14 @@ func startServer() {
 	}
 }
 func main() {
-	startServer()
+	startServer(false)
+}
+
+func getDBName(isTest bool) string {
+	if isTest {
+		fmt.Println("Starting server in DEV mode")
+		return "test"
+	} else {
+		return "todoApp"
+	}
 }
