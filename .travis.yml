@@ -5,7 +5,7 @@ dist: trusty
 branches:
   only:
     - main
-    - TestCI
+    - staging
 
 services:
   - docker

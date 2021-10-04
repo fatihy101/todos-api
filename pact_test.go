@@ -19,7 +19,6 @@ func TestProvider(t *testing.T) {
 	pact := &dsl.Pact{
 		Provider:                 "Todo API",
 		DisableToolValidityCheck: true,
-		LogLevel:                 "DEBUG",
 	}
 
 	// Verify the Provider using the locally saved Pact Files
