@@ -4,20 +4,5 @@ version: "3"
 services:
   http:
     image: todo_api_test
-    environment:
-      PORT: ":4000"
     ports:
       - "4000:4000"
-    depends_on:
-      - db
-    links:
-      - db
-
-  db:
-    image: mongo
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_DATABASE: todo
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
